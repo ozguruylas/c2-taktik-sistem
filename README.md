@@ -1,11 +1,11 @@
 # 🦅 C2 Taktik Komuta Kontrol Sistemi
 
-Bu proje, otonom İnsansız Hava Araçları (İHA) için geliştirilmiş gerçek zamanlı (real-time) bir komuta kontrol ve radar takip simülasyonudur. Sistem, SOLID prensipleri gözetilerek ve durum tabanlı (State/Strategy) mimari kullanılarak tasarlanmıştır.
+Bu proje, otonom Insansiz Hava Araclari (IHA) icin gelistirilmis gercek zamanli (real-time) bir komuta kontrol ve radar takip simulasyonudur. Sistem, SOLID prensipleri gozetilerek ve durum tabanli (State/Strategy) mimari kullanilarak tasarlanmistir.
 
-## 🚀 Öne Çıkan Özellikler
-* **Gerçek Zamanlı Radar (WebSocket):** İHA koordinatları STOMP protokolü üzerinden milisaniyeler içinde haritaya yansıtılır.
-* **Otonom Zeka (Strategy Pattern):** İHA'ların durumları (Görev, Dönüş, Bakım) karmaşık if-else yığınları yerine OOP Strategy Deseni ile izole edilmiştir.
-* **Görsel İnterpolasyon & Kuyruk Efekti:** Uçaklar atlamadan süzülerek ilerler ve arkalarında son 15 koordinatı kapsayan taktiksel bir iz (Polyline) bırakır.
+## 🚀 One Cikan Ozellikler
+* **Gercek Zamanli Radar (WebSocket):** IHA koordinatlari STOMP protokolu uzerinden milisaniyeler icinde haritaya yansitilir.
+* **Otonom Zeka (Strategy Pattern):** IHA'larin durumlari (Gorev, Donus, Bakim) karmasik if-else yiginlari yerine OOP Strategy Deseni ile izole edilmistir.
+* **Gorsel Interpolasyon & Kuyruk Efekti:** Ucaklar atlamadan suzulerek ilerler ve arkalarinda son 15 koordinati kapsayan taktiksel bir iz (Polyline) birakir.
 
 ## 🛠️ Mimari ve Teknolojiler
 * **Backend:** Java 17, Spring Boot, WebSocket (STOMP), H2 Database

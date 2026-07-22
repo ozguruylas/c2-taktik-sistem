@@ -3,67 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C2 Taktik Komuta Merkezi</title>
+    <title>C2 Tactical Command Center</title>
     
-    <!-- Leaflet Harita CSS (Taktik Harita İçin) -->
+    <!-- 
+      =========================================================================
+      1. VENDOR CSS (EXTERNAL LIBRARIES)
+      =========================================================================
+      Leaflet.js CSS: Core rendering engine for the tactical map.
+    -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
-    <!-- Kendi Stil Dosyamız (Karanlık Tema) -->
+    <!-- 
+      =========================================================================
+      2. APPLICATION CSS
+      =========================================================================
+      Custom military-grade dark theme and animation definitions.
+    -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
+    <!-- 
+      =========================================================================
+      APP SHELL: TOP NAVIGATION BAR
+      =========================================================================
+    -->
     <div class="header">
-        <h1>C2 TAKTİK EKRANI</h1>
-        <div class="status">SİSTEM: ÇEVRİMİÇİ</div>
+        <h1>C2 TAKTIK EKRANI</h1>
+        <!-- Real-time network status indicator (Updated via app.js) -->
+        <div class="status">SISTEM: BAGLANTI BEKLENIYOR...</div>
     </div>
     
     <div class="container">
-        <!-- Sol Menü: İHA Listesi -->
+        
+        <!-- 
+          =====================================================================
+          LEFT PANEL: OPERATOR CONTROLS & FLEET TELEMETRY
+          =====================================================================
+        -->
         <div class="sidebar">
-            <h2>FİLO DURUMU</h2>
+            <h2>FILO DURUMU</h2>
             
-            <!-- YENİ EKLENEN KISIM: İHA Fırlatma Paneli -->
+            <!-- UAV DEPLOYMENT MODULE -->
             <div class="add-drone-panel">
-                <input type="text" id="yeni-cagri-kodu" placeholder="Çağrı Kodu (Örn: AKINCI-1)">
+                <input type="text" id="yeni-cagri-kodu" placeholder="Cagri Kodu (Orn: AKINCI-1)">
                 
                 <select id="yeni-model">
                     <option value="Bayraktar TB2">Bayraktar TB2</option>
-                    <option value="Akıncı">Akıncı</option>
-                    <option value="Kızılelma">Kızılelma</option>
+                    <option value="Akinci">Akinci</option>
+                    <option value="Kizilelma">Kizilelma</option>
                 </select>
 
-                <!-- YENİ EKLENEN HEDEF (WAYPOINT) MENÜSÜ -->
+                <!-- WAYPOINT ALLOCATION MODULE -->
                 <select id="yeni-hedef">
-                    <option value="41.0082,28.9784">İstanbul (Kuzeybatı Sektörü)</option>
-                    <option value="36.2000,36.1667">Hatay (Güney Sınırı)</option>
-                    <option value="38.4192,27.1287">İzmir (Ege Kıyıları)</option>
-                    <option value="39.9207,41.2679">Erzurum (Doğu Sektörü)</option>
+                    <option value="41.0082,28.9784">Istanbul (Kuzeybati Sektoru)</option>
+                    <option value="36.2000,36.1667">Hatay (Guney Siniri)</option>
+                    <option value="38.4192,27.1287">Izmir (Ege Kiyilari)</option>
+                    <option value="39.9207,41.2679">Erzurum (Dogu Sektoru)</option>
                 </select>
 
-                <button class="btn-add" onclick="yeniIhaFirlat()">[ SİSTEME YENİ İHA EKLE ]</button>
+                <button class="btn-add" onclick="yeniIhaFirlat()">[ SISTEME YENI IHA EKLE ]</button>
             </div>
+            
             <hr class="panel-divider">
-            <!-- YENİ EKLENEN KISIM SONU -->
 
+            <!-- REAL-TIME UAV DATA CARDS CONTAINER -->
             <div id="drone-list" class="drone-list">
-                <div class="drone-card">Veri Bağlantısı Bekleniyor...</div>
+                <!-- Data populated dynamically via app.js (ekranaCiz function) -->
+                <div class="drone-card">Veri Baglantisi Bekleniyor...</div>
             </div>
         </div>
 
-        <!-- Ana Ekran: Harita Simülasyon Alanı -->
+        <!-- 
+          =====================================================================
+          MAIN PANEL: TACTICAL RADAR SIMULATION
+          =====================================================================
+        -->
         <div class="main-map" id="map" style="width: 100%; height: 100%;">
-            <!-- Leaflet.js haritayı otomatik olarak buraya çizecek -->
+            <!-- Leaflet.js engine injects map tiles and SVG overlays here -->
         </div>
     </div>
 
-    <!-- Leaflet Harita JS Motoru -->
+    <!-- 
+      =========================================================================
+      JAVASCRIPT DEPENDENCIES & APPLICATION LOGIC
+      =========================================================================
+    -->
+    
+    <!-- 1. Map Engine -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
-    <!-- YENİ EKLENEN: WebSocket Alıcı Telsiz Kütüphaneleri -->
+    <!-- 2. STOMP over WebSocket Protocol libraries for real-time telemetry -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     
-    <!-- Kendi Bağlantı ve Mantık Dosyamız (Uçak verilerini çektiğimiz yer) -->
+    <!-- 3. Core Business Logic (Must load last to ensure DOM is ready) -->
     <script src="app.js"></script>
 </body>
 </html>

@@ -1,21 +1,49 @@
+/**
+ * ============================================================================
+ * UAV COMMAND & CONTROL (C2) - TACTICAL UI STYLESHEET
+ * ============================================================================
+ * Theme      : Dark Mode / Military Terminal
+ * Typography : Monospace (Courier New)
+ * Layout     : CSS Flexbox (100vh locked viewport)
+ * ============================================================================
+ */
+
+/* ============================================================================
+ * 1. DESIGN TOKENS (CSS VARIABLES)
+ * Centralized color palette and spacing variables.
+ * ============================================================================ */
 :root {
-    --bg-color: #050505; /* Çok koyu gri/siyah arka plan */
-    --panel-bg: #111111; /* Paneller için biraz daha açık siyah */
-    --neon-green: #00ff41; /* Askeri radar yeşili */
-    --border-color: rgba(0, 255, 65, 0.3);
+    --bg-color: #050505;       /* Deep dark background for low-light tactical environments */
+    --panel-bg: #111111;       /* Slightly lighter shade for structural panels */
+    --neon-green: #00ff41;     /* Primary tactical radar green */
+    --border-color: rgba(0, 255, 65, 0.3); /* Subtle borders to prevent visual fatigue */
 }
 
+/* ============================================================================
+ * 2. APP SHELL & LAYOUT
+ * Locks the viewport to prevent scrolling and establishes the terminal font.
+ * ============================================================================ */
 body {
     margin: 0;
     background-color: var(--bg-color);
     color: var(--neon-green);
-    font-family: 'Courier New', Courier, monospace; /* Terminal yazısı efekti */
+    font-family: 'Courier New', Courier, monospace; /* Simulates console/terminal output */
     display: flex;
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
 }
 
+.container {
+    display: flex;
+    flex: 1;
+}
+
+/* ============================================================================
+ * 3. COMPONENTS
+ * ============================================================================ */
+
+/* --- Top Navigation / Header --- */
 .header {
     border-bottom: 2px solid var(--neon-green);
     padding: 15px 30px;
@@ -33,30 +61,16 @@ body {
     text-shadow: 0 0 8px var(--neon-green);
 }
 
-.status {
-    animation: blink 2s infinite;
-}
-
-/* Yanıp sönme animasyonu (Çevrimiçi yazısı için) */
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
-
-.container {
-    display: flex;
-    flex: 1;
-}
-
+/* --- Left Sidebar (Fleet Status) --- */
 .sidebar {
     width: 320px;
     border-right: 2px solid var(--border-color);
     padding: 20px;
     background: var(--panel-bg);
-    overflow-y: auto;
+    overflow-y: auto; /* Allows scrolling only within the fleet list */
 }
 
+/* --- Telemetry Cards (Individual UAVs) --- */
 .drone-card {
     border: 1px solid var(--border-color);
     padding: 15px;
@@ -69,9 +83,10 @@ body {
 
 .drone-card:hover {
     background: rgba(0, 255, 65, 0.15);
-    cursor: crosshair;
+    cursor: crosshair; /* Tactical UX touch for target acquisition feeling */
 }
 
+/* --- Main Radar Screen --- */
 .main-map {
     flex: 1;
     display: flex;
@@ -80,30 +95,55 @@ body {
     background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
 }
 
-/* Acil Durum Kırmızı Rengi ve Animasyonu */
-.alert-danger {
-    color: #ff003c !important;
+/* ============================================================================
+ * 4. FORMS & CONTROLS (OPERATOR PANEL)
+ * ============================================================================ */
+
+.add-drone-panel {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-drone-panel input, 
+.add-drone-panel select {
+    background-color: #000;
+    color: var(--neon-green);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.add-drone-panel input::placeholder {
+    color: rgba(0, 255, 65, 0.4);
+}
+
+.panel-divider {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+/* --- Action Buttons --- */
+.btn-add {
+    background-color: var(--neon-green);
+    color: #000;
+    border: none;
+    padding: 10px;
+    font-family: inherit;
     font-weight: bold;
-    animation: danger-blink 1s infinite;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-@keyframes danger-blink {
-    0% { opacity: 1; text-shadow: 0 0 10px #ff003c; }
-    50% { opacity: 0.4; text-shadow: none; }
-    100% { opacity: 1; text-shadow: 0 0 10px #ff003c; }
+.btn-add:hover {
+    background-color: #fff;
+    box-shadow: 0 0 15px var(--neon-green);
 }
 
-/* Haritadaki kırmızı radar ikonu için */
-.custom-div-icon-danger {
-    background-color: #ff003c;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    box-shadow: 0 0 15px #ff003c;
-    animation: danger-blink 1s infinite;
-}
-
-/* Komuta Butonu Tasarımı */
 .btn-rtb {
     background-color: transparent;
     color: #ff003c;
@@ -123,56 +163,56 @@ body {
     box-shadow: 0 0 10px #ff003c;
 }
 
-/* Buton gizleme sınıfı (Sadece görevdeyken RTB butonu görünür olsun) */
+/* ============================================================================
+ * 5. UTILITIES, STATES & ANIMATIONS
+ * ============================================================================ */
+
+/* Hides elements gracefully without disrupting DOM structure */
 .d-none {
     display: none;
 }
 
-/* Yeni İHA Ekleme Paneli Tasarımı */
-.add-drone-panel {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+/* --- Heartbeat / Connection Animations --- */
+.status {
+    animation: blink 2s infinite;
 }
 
-.add-drone-panel input, .add-drone-panel select {
-    background-color: #000;
-    color: var(--neon-green);
-    border: 1px solid var(--border-color);
-    padding: 10px;
-    font-family: inherit;
-    font-size: 14px;
-    outline: none;
+@keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.5; }
+    100% { opacity: 1; }
 }
 
-.add-drone-panel input::placeholder {
-    color: rgba(0, 255, 65, 0.4);
-}
-
-.btn-add {
-    background-color: var(--neon-green);
-    color: #000;
-    border: none;
-    padding: 10px;
-    font-family: inherit;
+/* --- Critical Alert States (Bingo Fuel / Returning) --- */
+.alert-danger {
+    color: #ff003c !important;
     font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    animation: danger-blink 1s infinite;
 }
 
-.btn-add:hover {
-    background-color: #fff;
-    box-shadow: 0 0 15px var(--neon-green);
+@keyframes danger-blink {
+    0%   { opacity: 1; text-shadow: 0 0 10px #ff003c; }
+    50%  { opacity: 0.4; text-shadow: none; }
+    100% { opacity: 1; text-shadow: 0 0 10px #ff003c; }
 }
 
-.panel-divider {
-    border: 0;
-    border-top: 1px solid var(--border-color);
-    margin-bottom: 20px;
-}
+/* ============================================================================
+ * 6. LEAFLET MAP ENGINE OVERRIDES
+ * Customizes third-party map layers to fit the C2 visual language.
+ * ============================================================================ */
 
-/* İHA'ların zıplamak yerine 3 saniye boyunca kayarak (smooth) ilerlemesini sağlar */
+/* Hardware-accelerated interpolation for smooth marker movement.
+   Prevents teleporting/jumping when receiving new WebSocket coordinates. */
 .custom-div-icon {
     transition: transform 3s linear !important; 
+}
+
+/* Tactical alert marker for UAVs in distress or returning */
+.custom-div-icon-danger {
+    background-color: #ff003c;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff003c;
+    animation: danger-blink 1s infinite;
 }
