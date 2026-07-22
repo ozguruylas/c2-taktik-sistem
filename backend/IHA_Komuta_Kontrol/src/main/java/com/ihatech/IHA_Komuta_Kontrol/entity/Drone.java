@@ -5,34 +5,53 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * ============================================================================
+ * C2 TACTICAL COMMAND CENTER - DOMAIN ENTITY
+ * ============================================================================
+ * Architecture : JPA Entity / Database Model
+ * Purpose      : Represents a physical Unmanned Aerial Vehicle (UAV) asset
+ *                within the operational grid. Holds critical telemetry,
+ *                specifications, and real-time state data.
+ * ============================================================================
+ */
 @Entity
 @Table(name = "drones")
-@Data // Lombok: Tüm getter/setter/toString metodlarını otomatik yazar
-@NoArgsConstructor // Lombok: Boş constructor oluşturur (JPA için zorunlu)
-@AllArgsConstructor // Lombok: Tüm alanları içeren constructor oluşturur
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Drone {
+
+    // --- 1. Asset Identity & Specifications ---
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Veri tabanı için benzersiz kimlik (Primary Key)
+    private Long id;
 
     @Column(unique = true, nullable = false)
-    private String cagriKodu; // Örn: "TB2-Alpha" (Sistemde iki tane aynı kodlu İHA olamaz)
-    private String model; // Örn: "Bayraktar TB2", "Akıncı"
+    private String cagriKodu;
 
-    private double bataryaSeviyesi; // Yüzde olarak: 100.0, 15.5
+    private String model;
 
-    // Harita ve Simülasyon için Telemetri Verileri
-    private double enlem;  // Latitude (X koordinatı)
-    private double boylam; // Longitude (Y koordinatı)
-    private double irtifa; // Yükseklik (Metre)
-    private double hiz;    // Anlık hız (Knot)
+    // --- 2. Hardware & Power Systems ---
 
-    // Sonradan eklediklerim
+    private double bataryaSeviyesi;
+
+    // --- 3. Real-Time Telemetry ---
+
+    private double enlem;
+    private double boylam;
+    private double irtifa;
+    private double hiz;
+
+    // --- 4. Navigation & Target Routing ---
+    // Note: Used Wrapper Class (Double) to allow null values during free-flight
+
     private Double hedefEnlem;
     private Double hedefBoylam;
 
+    // --- 5. Operational State ---
+
     @Enumerated(EnumType.STRING)
-    private DroneStatus durum; // İHA'nın anlık statüsü
+    private DroneStatus durum;
 }

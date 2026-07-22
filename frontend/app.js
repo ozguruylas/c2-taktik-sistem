@@ -28,7 +28,7 @@ const SABITLER = {
         ZOOM: 6,
         TILE_URL: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
         GEOJSON_URL: 'https://nominatim.openstreetmap.org/search?country=Turkey&polygon_geojson=1&format=json',
-        KUYRUK_UZUNLUGU: 15 // Max coordinate points kept in memory for comet tail effect
+        KUYRUK_UZUNLUGU: 0 // Max coordinate points kept in memory for comet tail effect
     },
     RENKLER: {
         NORMAL: '#00ff41', // Tactical Green

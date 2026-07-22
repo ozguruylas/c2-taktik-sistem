@@ -6,20 +6,43 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+/**
+ * ============================================================================
+ * C2 TACTICAL COMMAND CENTER - REAL-TIME COMMUNICATIONS (WEBSOCKET)
+ * ============================================================================
+ * Architecture : Event-Driven, STOMP Protocol over SockJS
+ * Purpose      : Establishes a persistent, low-latency duplex connection
+ *                between the backend simulation engine and the tactical UI.
+ *                Acts as the main "radio tower" for broadcasting UAV telemetry.
+ * ============================================================================
+ */
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+    /**
+     * Primary Uplink Configuration: Defines the handshake endpoint for the client.
+     * Utilizes SockJS fallback options for legacy or restricted network environments.
+     *
+     * @param registry Spring's STOMP endpoint registry
+     */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // Ön yüzün (JavaScript) arka uca bağlanacağı ana kapı (Endpoint)
-        // setAllowedOriginPatterns("*") ile CORS hatalarını engelliyoruz
-        registry.addEndpoint("/ws-radar").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/ws-radar")
+                .setAllowedOriginPatterns("*")
+                .withSockJS();
     }
 
+    /**
+     * Message Broker Routing: Configures the internal message routing architecture.
+     *
+     * - "/topic" : Broadcasting frequency for out-bound telemetry (Server to Client).
+     * - "/app"   : Prefix for in-bound operator commands (Client to Server).
+     *
+     * @param registry Spring's message broker registry
+     */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        // İHA verilerinin yayınlanacağı telsiz frekansı (Topic)
         registry.enableSimpleBroker("/topic");
         registry.setApplicationDestinationPrefixes("/app");
     }
