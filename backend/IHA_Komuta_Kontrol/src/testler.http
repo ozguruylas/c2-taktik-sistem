@@ -1,0 +1,45 @@
+### 1. Sisteme Yeni İHA Ekle
+POST http://localhost:8080/api/drones/ekle
+Content-Type: application/json
+
+{
+  "cagriKodu": "TB2-Alpha-1",
+  "model": "Bayraktar TB2",
+  "bataryaSeviyesi": 100.0,
+  "enlem": 39.92077,
+  "boylam": 32.85411,
+  "irtifa": 18000,
+  "hiz": 120.5
+}
+
+### 1. Sisteme Yeni İHA Ekle
+POST http://localhost:8080/api/drones/ekle
+Content-Type: application/json
+
+{
+  "cagriKodu": "TB2-Alpha-2",
+  "model": "Bayraktar TB2",
+  "bataryaSeviyesi": 100.0,
+  "enlem": 39.92077,
+  "boylam": 32.85411,
+  "irtifa": 18000,
+  "hiz": 120.5
+}
+
+### 1. Sisteme Yeni İHA Ekle
+POST http://localhost:8080/api/drones/ekle
+Content-Type: application/json
+
+{
+  "cagriKodu": "TB2-Alpha-3",
+  "model": "Bayraktar TB2",
+  "bataryaSeviyesi": 100.0,
+  "enlem": 39.92077,
+  "boylam": 32.85411,
+  "irtifa": 18000,
+  "hiz": 120.5
+}
+
+
+### 2. Tüm Filoyu Getir
+GET http://localhost:8080/api/drones/filo

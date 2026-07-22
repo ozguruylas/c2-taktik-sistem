@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C2 Taktik Komuta Merkezi</title>
+    
+    <!-- Leaflet Harita CSS (Taktik Harita İçin) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Kendi Stil Dosyamız (Karanlık Tema) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>C2 TAKTİK EKRANI</h1>
+        <div class="status">SİSTEM: ÇEVRİMİÇİ</div>
+    </div>
+    
+    <div class="container">
+        <!-- Sol Menü: İHA Listesi -->
+        <div class="sidebar">
+            <h2>FİLO DURUMU</h2>
+            
+            <!-- YENİ EKLENEN KISIM: İHA Fırlatma Paneli -->
+            <div class="add-drone-panel">
+                <input type="text" id="yeni-cagri-kodu" placeholder="Çağrı Kodu (Örn: AKINCI-1)">
+                
+                <select id="yeni-model">
+                    <option value="Bayraktar TB2">Bayraktar TB2</option>
+                    <option value="Akıncı">Akıncı</option>
+                    <option value="Kızılelma">Kızılelma</option>
+                </select>
+
+                <!-- YENİ EKLENEN HEDEF (WAYPOINT) MENÜSÜ -->
+                <select id="yeni-hedef">
+                    <option value="41.0082,28.9784">İstanbul (Kuzeybatı Sektörü)</option>
+                    <option value="36.2000,36.1667">Hatay (Güney Sınırı)</option>
+                    <option value="38.4192,27.1287">İzmir (Ege Kıyıları)</option>
+                    <option value="39.9207,41.2679">Erzurum (Doğu Sektörü)</option>
+                </select>
+
+                <button class="btn-add" onclick="yeniIhaFirlat()">[ SİSTEME YENİ İHA EKLE ]</button>
+            </div>
+            <hr class="panel-divider">
+            <!-- YENİ EKLENEN KISIM SONU -->
+
+            <div id="drone-list" class="drone-list">
+                <div class="drone-card">Veri Bağlantısı Bekleniyor...</div>
+            </div>
+        </div>
+
+        <!-- Ana Ekran: Harita Simülasyon Alanı -->
+        <div class="main-map" id="map" style="width: 100%; height: 100%;">
+            <!-- Leaflet.js haritayı otomatik olarak buraya çizecek -->
+        </div>
+    </div>
+
+    <!-- Leaflet Harita JS Motoru -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- YENİ EKLENEN: WebSocket Alıcı Telsiz Kütüphaneleri -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    
+    <!-- Kendi Bağlantı ve Mantık Dosyamız (Uçak verilerini çektiğimiz yer) -->
+    <script src="app.js"></script>
+</body>
+</html>

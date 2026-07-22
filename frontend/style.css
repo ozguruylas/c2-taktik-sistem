@@ -1,0 +1,178 @@
+:root {
+    --bg-color: #050505; /* Çok koyu gri/siyah arka plan */
+    --panel-bg: #111111; /* Paneller için biraz daha açık siyah */
+    --neon-green: #00ff41; /* Askeri radar yeşili */
+    --border-color: rgba(0, 255, 65, 0.3);
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--neon-green);
+    font-family: 'Courier New', Courier, monospace; /* Terminal yazısı efekti */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.header {
+    border-bottom: 2px solid var(--neon-green);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--panel-bg);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 8px var(--neon-green);
+}
+
+.status {
+    animation: blink 2s infinite;
+}
+
+/* Yanıp sönme animasyonu (Çevrimiçi yazısı için) */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.container {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    width: 320px;
+    border-right: 2px solid var(--border-color);
+    padding: 20px;
+    background: var(--panel-bg);
+    overflow-y: auto;
+}
+
+.drone-card {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(0, 255, 65, 0.05);
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.05);
+    transition: 0.3s;
+}
+
+.drone-card:hover {
+    background: rgba(0, 255, 65, 0.15);
+    cursor: crosshair;
+}
+
+.main-map {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+}
+
+/* Acil Durum Kırmızı Rengi ve Animasyonu */
+.alert-danger {
+    color: #ff003c !important;
+    font-weight: bold;
+    animation: danger-blink 1s infinite;
+}
+
+@keyframes danger-blink {
+    0% { opacity: 1; text-shadow: 0 0 10px #ff003c; }
+    50% { opacity: 0.4; text-shadow: none; }
+    100% { opacity: 1; text-shadow: 0 0 10px #ff003c; }
+}
+
+/* Haritadaki kırmızı radar ikonu için */
+.custom-div-icon-danger {
+    background-color: #ff003c;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff003c;
+    animation: danger-blink 1s infinite;
+}
+
+/* Komuta Butonu Tasarımı */
+.btn-rtb {
+    background-color: transparent;
+    color: #ff003c;
+    border: 1px solid #ff003c;
+    padding: 5px 10px;
+    margin-top: 10px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn-rtb:hover {
+    background-color: #ff003c;
+    color: #000;
+    box-shadow: 0 0 10px #ff003c;
+}
+
+/* Buton gizleme sınıfı (Sadece görevdeyken RTB butonu görünür olsun) */
+.d-none {
+    display: none;
+}
+
+/* Yeni İHA Ekleme Paneli Tasarımı */
+.add-drone-panel {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-drone-panel input, .add-drone-panel select {
+    background-color: #000;
+    color: var(--neon-green);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.add-drone-panel input::placeholder {
+    color: rgba(0, 255, 65, 0.4);
+}
+
+.btn-add {
+    background-color: var(--neon-green);
+    color: #000;
+    border: none;
+    padding: 10px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #fff;
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+.panel-divider {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+/* İHA'ların zıplamak yerine 3 saniye boyunca kayarak (smooth) ilerlemesini sağlar */
+.custom-div-icon {
+    transition: transform 3s linear !important; 
+}

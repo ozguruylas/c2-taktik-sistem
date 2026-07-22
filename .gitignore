@@ -1,0 +1,10 @@
+# IntelliJ & Java
+backend/target/
+backend/.idea/
+backend/*.iml
+
+# VS Code
+frontend/.vscode/
+
+# İşletim Sistemi
+.DS_Store
